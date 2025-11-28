@@ -19,7 +19,7 @@ This application allows a group of players to join a shared game room from their
 ## 🕹️ How to Play
 You don't need to install anything! Just click the link below to start playing immediately:
 
-👉 **[Play Imposter Now](https://imposter-game.vercel.app)**
+👉 **[Play Imposter Now](https://imposter-game-pink.vercel.app)**
 
 1. **Create a Room:** One person creates a room and gets a code.
 2. **Join:** Friends enter the code to join the lobby.
