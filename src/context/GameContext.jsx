@@ -2,6 +2,9 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { subscribeToRoom, removePlayer, deleteRoom } from '../services/roomService';
 import { startGame, markPlayerReady, submitOutcome, nextRound, castVote } from '../services/gameService';
 
+import { auth } from '../firebase';
+import { onAuthStateChanged } from 'firebase/auth';
+
 const GameContext = createContext();
 
 export const useGame = () => {
@@ -14,10 +17,24 @@ export const GameProvider = ({ children }) => {
   const [roomData, setRoomData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [user, setUser] = useState(null);
+
+  // Monitor Auth State
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      if (!currentUser) {
+        console.log("Waiting for anonymous auth...");
+      } else {
+        console.log("Authenticated as:", currentUser.uid);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
-
-    if (roomId) {
+    // Only subscribe if we have a roomId AND we are authenticated
+    if (roomId && user) {
       setLoading(true);
       const unsubscribe = subscribeToRoom(roomId, (data, err) => {
 
@@ -38,7 +55,7 @@ export const GameProvider = ({ children }) => {
       });
       return () => unsubscribe();
     }
-  }, [roomId]);
+  }, [roomId, user]);
 
   const joinGame = (newRoomId, newPlayerId) => {
     setRoomData(null); // Clear old data immediately
