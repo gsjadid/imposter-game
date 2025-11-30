@@ -30,7 +30,7 @@ export function VotingScreen({
   const [hasVoted, setHasVoted] = useState(false);
 
   const alivePlayers = players.filter(p => p.isAlive && p.id !== currentPlayerId);
-  
+
   // Calculate vote statistics
   const votedPlayers = players.filter(p => p.hasVoted);
   const totalPlayers = players.filter(p => p.isAlive).length;
@@ -50,7 +50,7 @@ export function VotingScreen({
   };
 
   return (
-    <div className="h-screen w-full bg-gradient-to-br from-[var(--game-bg-gradient-start)] via-[var(--game-bg-gradient-end)] to-[var(--game-purple-dark)] flex flex-col p-3 sm:p-4 overflow-hidden relative">
+    <div className="h-dynamic-screen w-full bg-gradient-to-br from-[var(--game-bg-gradient-start)] via-[var(--game-bg-gradient-end)] to-[var(--game-purple-dark)] flex flex-col p-3 sm:p-4 overflow-hidden relative">
       {/* Leave Game Button */}
       {onLeaveGame && (
         <motion.div
@@ -182,21 +182,18 @@ export function VotingScreen({
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.2 + index * 0.05 }}
                       onClick={() => setSelectedPlayer(player.id)}
-                      className={`w-full p-3 sm:p-4 rounded-xl sm:rounded-2xl border-2 transition-all ${
-                        isSelected
-                          ? "bg-white/20 border-white/50 shadow-xl scale-[1.02]"
-                          : "bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20"
-                      }`}
+                      className={`w-full p-3 sm:p-4 rounded-xl sm:rounded-2xl border-2 transition-all ${isSelected
+                        ? "bg-white/20 border-white/50 shadow-xl scale-[1.02]"
+                        : "bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20"
+                        }`}
                     >
                       <div className="flex items-center gap-2 sm:gap-3">
                         <div
                           className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-lg sm:text-xl flex-shrink-0"
                           style={{
-                            background: `linear-gradient(135deg, ${
-                              ['#EC4899', '#8B5CF6', '#06B6D4', '#F59E0B', '#10B981', '#EF4444'][index % 6]
-                            }, ${
-                              ['#F97316', '#7C3AED', '#0EA5E9', '#FBBF24', '#059669', '#DC2626'][index % 6]
-                            })`,
+                            background: `linear-gradient(135deg, ${['#EC4899', '#8B5CF6', '#06B6D4', '#F59E0B', '#10B981', '#EF4444'][index % 6]
+                              }, ${['#F97316', '#7C3AED', '#0EA5E9', '#FBBF24', '#059669', '#DC2626'][index % 6]
+                              })`,
                           }}
                         >
                           👤

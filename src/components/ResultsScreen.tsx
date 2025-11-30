@@ -31,7 +31,7 @@ export function ResultsScreen({
   const imposterPlayer = players.find(p => p.role === "imposter");
 
   return (
-    <div className="h-screen w-full bg-gradient-to-br from-[var(--game-bg-gradient-start)] via-[var(--game-bg-gradient-end)] to-[var(--game-purple-dark)] flex flex-col p-3 sm:p-4 overflow-hidden relative">
+    <div className="h-dynamic-screen w-full bg-gradient-to-br from-[var(--game-bg-gradient-start)] via-[var(--game-bg-gradient-end)] to-[var(--game-purple-dark)] flex flex-col p-3 sm:p-4 overflow-hidden relative">
       {/* Animated celebratory background - reduced count */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {useMemo(() => {

@@ -33,7 +33,7 @@ export function RoleRevealScreen({ role, word, hint, onContinue, onLeaveGame }: 
   }, []);
 
   return (
-    <div className="h-screen w-full bg-gradient-to-br from-[var(--game-bg-gradient-start)] via-[var(--game-bg-gradient-end)] to-[var(--game-purple-dark)] flex items-center justify-center p-3 sm:p-4 overflow-hidden relative">
+    <div className="h-dynamic-screen w-full bg-gradient-to-br from-[var(--game-bg-gradient-start)] via-[var(--game-bg-gradient-end)] to-[var(--game-purple-dark)] flex items-center justify-center p-3 sm:p-4 overflow-hidden relative">
       {/* Leave Game Button */}
       {onLeaveGame && (
         <motion.div
@@ -154,7 +154,7 @@ export function RoleRevealScreen({ role, word, hint, onContinue, onLeaveGame }: 
               key="revealed"
               initial={{ opacity: 0, scale: 0.8, rotateY: 90 }}
               animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-              transition={{ 
+              transition={{
                 duration: 0.6,
                 type: "spring",
                 stiffness: 100,
@@ -235,7 +235,7 @@ export function RoleRevealScreen({ role, word, hint, onContinue, onLeaveGame }: 
                   {isImposter ? "IMPOSTER" : "CIVILIAN"}
                 </h1>
                 <p className="text-white/70 text-sm sm:text-base md:text-lg">
-                  {isImposter 
+                  {isImposter
                     ? "You don't have the word. Blend in!"
                     : "You have the secret word!"}
                 </p>
@@ -303,7 +303,7 @@ export function RoleRevealScreen({ role, word, hint, onContinue, onLeaveGame }: 
                   {/* Instructions */}
                   <div className="bg-white/5 backdrop-blur-xl rounded-xl sm:rounded-2xl p-3 sm:p-4 border border-[var(--game-red)]/30">
                     <p className="text-white/80 text-xs sm:text-sm md:text-base">
-                      🎭 Listen carefully to others and try to figure out the word. 
+                      🎭 Listen carefully to others and try to figure out the word.
                       Blend in without revealing you don't know it!
                     </p>
                   </div>
@@ -319,7 +319,7 @@ export function RoleRevealScreen({ role, word, hint, onContinue, onLeaveGame }: 
                   className="bg-white/5 backdrop-blur-xl rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 border border-[var(--game-red)]/30 mb-3 sm:mb-4 md:mb-6"
                 >
                   <p className="text-white/80 text-xs sm:text-sm md:text-base">
-                    🎭 Listen carefully to others and try to figure out the word. 
+                    🎭 Listen carefully to others and try to figure out the word.
                     Blend in without revealing you don't know it!
                   </p>
                 </motion.div>

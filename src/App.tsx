@@ -98,7 +98,7 @@ function App() {
     // Loading state
     if (loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-slate-950">
+            <div className="h-dynamic-screen flex items-center justify-center bg-slate-950">
                 <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cyan-500"></div>
             </div>
         );
@@ -109,7 +109,7 @@ function App() {
     // If roomData, we are in a game state
 
     return (
-        <div className="min-h-screen w-full relative overflow-hidden bg-gradient-to-br from-[var(--game-bg-gradient-start)] via-[var(--game-bg-gradient-end)] to-[var(--game-purple-dark)]">
+        <div className="h-dynamic-screen w-full relative overflow-hidden bg-gradient-to-br from-[var(--game-bg-gradient-start)] via-[var(--game-bg-gradient-end)] to-[var(--game-purple-dark)]">
             <AnimatePresence mode="sync">
                 {!roomData && !showJoinScreen && !showCreateScreen && (
                     <motion.div

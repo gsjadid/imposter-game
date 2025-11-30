@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Party Heist! - Project Documentation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        h3 {
+            color: #7f8c8d;
+            margin-top: 25px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin: 15px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        code {
+            background-color: #f8f9fa;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+            color: #e74c3c;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+                max-width: 100%;
+            }
+
+            h1,
+            h2 {
+                page-break-after: avoid;
+            }
+
+            img {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Party Heist! - Project Documentation</h1>
+
+    <h2>1. Project Overview</h2>
+    <p><strong>Imposter</strong> is a real-time, multiplayer social deduction game inspired by "Among Us". Players are
+        assigned roles (Citizen or Imposter) and must work to identify the Imposter before they eliminate everyone. The
+        game is built with a mobile-first design philosophy, ensuring a seamless experience across devices.</p>
+
+    <h2>2. Key Features</h2>
+    <ul>
+        <li><strong>Real-time Multiplayer</strong>: Seamless interaction between players using Firebase Realtime
+            Database.</li>
+        <li><strong>Mobile-First Design</strong>: Optimized UI/UX for mobile devices with responsive layouts and
+            touch-friendly controls.</li>
+        <li><strong>Dynamic Game Flow</strong>: Automated state transitions from Lobby -&gt; Role Reveal -&gt;
+            Discussion -&gt; Voting -&gt; Results.</li>
+        <li><strong>Room Code System</strong>: Easy-to-share 4-letter codes for private game lobbies.</li>
+    </ul>
+
+    <h2>3. How to Play</h2>
+
+    <h3>Step 1: Home Screen</h3>
+    <p>Start by entering your player name. You can either create a new game or join an existing one using a Room Code.
+    </p>
+    <img src="file:///C:/Users/gsjadid/.gemini/antigravity/brain/72a7ad03-f391-470e-8745-d0d6d55834b8/doc_home_screen_1764512575296.png"
+        alt="Home Screen">
+
+    <h3>Step 2: Lobby Creation</h3>
+    <p>As a host, you'll be taken to the lobby. Share the <strong>Room Code</strong> (displayed at the top) with friends
+        so they can join.</p>
+    <img src="file:///C:/Users/gsjadid/.gemini/antigravity/brain/72a7ad03-f391-470e-8745-d0d6d55834b8/doc_lobby_empty_1764512623659.png"
+        alt="Empty Lobby">
+
+    <h3>Step 3: Gathering Players</h3>
+    <p>Wait for players to join. If you don't have enough human players, you can add bots to fill the lobby.</p>
+    <img src="file:///C:/Users/gsjadid/.gemini/antigravity/brain/72a7ad03-f391-470e-8745-d0d6d55834b8/doc_lobby_full_1764512667471.png"
+        alt="Lobby with Players">
+
+    <h3>Step 4: Role Reveal</h3>
+    <p>Once the game starts, your role will be secretly revealed.</p>
+    <ul>
+        <li><strong>Citizen</strong>: Find the Imposter!</li>
+        <li><strong>Imposter</strong>: Blend in and survive!</li>
+    </ul>
+    <img src="file:///C:/Users/gsjadid/.gemini/antigravity/brain/72a7ad03-f391-470e-8745-d0d6d55834b8/doc_role_reveal_1764512695112.png"
+        alt="Role Reveal">
+
+    <h3>Step 5: Discussion Phase</h3>
+    <p>Discuss with other players. Use the chat (if available) or voice chat (external) to share suspicions.</p>
+    <img src="file:///C:/Users/gsjadid/.gemini/antigravity/brain/72a7ad03-f391-470e-8745-d0d6d55834b8/doc_discussion_1764512742808.png"
+        alt="Discussion Phase">
+
+    <h3>Step 6: Voting Phase</h3>
+    <p>Cast your vote for who you think the Imposter is. The player with the most votes will be eliminated.</p>
+    <img src="file:///C:/Users/gsjadid/.gemini/antigravity/brain/72a7ad03-f391-470e-8745-d0d6d55834b8/doc_voting_1764512749870.png"
+        alt="Voting Phase">
+
+    <h3>Step 7: Game Results</h3>
+    <p>The game ends when the Imposter is caught (Citizens Win) or when the Imposter outnumbers the Citizens (Imposter
+        Wins).</p>
+    <img src="file:///C:/Users/gsjadid/.gemini/antigravity/brain/72a7ad03-f391-470e-8745-d0d6d55834b8/doc_results_final_1764512790421.png"
+        alt="Results Screen">
+
+    <h2>4. Technical Stack</h2>
+    <ul>
+        <li><strong>Frontend</strong>: React (Vite)</li>
+        <li><strong>Styling</strong>: Vanilla CSS (Mobile-first, Responsive)</li>
+        <li><strong>Backend/Database</strong>: Firebase Realtime Database</li>
+        <li><strong>State Management</strong>: React Context API</li>
+        <li><strong>Testing/Automation</strong>: Custom Bot Scripts (Node.js)</li>
+    </ul>
+
+    <h2>5. Future Roadmap</h2>
+    <ul>
+        <li><strong>In-game Chat</strong>: Integrated text chat for discussions.</li>
+        <li><strong>Multiple Imposters</strong>: Support for larger lobbies with 2+ Imposters.</li>
+        <li><strong>Character Customization</strong>: Avatars and skins.</li>
+    </ul>
+
+</body>
+
+</html>

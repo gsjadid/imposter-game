@@ -44,7 +44,7 @@ export function GameplayScreen({
   };
 
   return (
-    <div className="h-screen w-full bg-gradient-to-br from-[var(--game-bg-gradient-start)] via-[var(--game-bg-gradient-end)] to-[var(--game-purple-dark)] flex flex-col p-2 sm:p-3 md:p-4 overflow-hidden relative">
+    <div className="h-dynamic-screen w-full bg-gradient-to-br from-[var(--game-bg-gradient-start)] via-[var(--game-bg-gradient-end)] to-[var(--game-purple-dark)] flex flex-col p-2 sm:p-3 md:p-4 overflow-hidden relative">
       {/* Animated background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
@@ -277,8 +277,8 @@ export function GameplayScreen({
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.3 + index * 0.05 }}
                     className={`p-2 rounded-lg border ${isCurrentPlayer
-                        ? "bg-white/10 border-white/30"
-                        : "bg-white/5 border-white/10"
+                      ? "bg-white/10 border-white/30"
+                      : "bg-white/5 border-white/10"
                       } ${!player.isAlive && "opacity-40"}`}
                   >
                     <div className="flex items-center gap-1.5 sm:gap-2">

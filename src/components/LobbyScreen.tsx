@@ -29,7 +29,7 @@ export function LobbyScreen({ roomCode, players, isHost, onStartGame, onLeave }:
   };
 
   return (
-    <div className="h-screen w-full bg-gradient-to-br from-[var(--game-bg-gradient-start)] via-[var(--game-bg-gradient-end)] to-[var(--game-purple-dark)] flex flex-col p-3 sm:p-4 overflow-hidden relative">
+    <div className="h-dynamic-screen w-full bg-gradient-to-br from-[var(--game-bg-gradient-start)] via-[var(--game-bg-gradient-end)] to-[var(--game-purple-dark)] flex flex-col p-3 sm:p-4 overflow-hidden relative">
       {/* Animated background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
@@ -134,14 +134,12 @@ export function LobbyScreen({ roomCode, players, isHost, onStartGame, onLeave }:
                 transition={{ delay: 0.3 + index * 0.1 }}
                 className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 bg-white/5 rounded-xl sm:rounded-2xl border border-white/10 hover:bg-white/10 transition-colors"
               >
-                <div 
+                <div
                   className="w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-lg sm:text-xl flex-shrink-0"
                   style={{
-                    background: `linear-gradient(135deg, ${
-                      ['#EC4899', '#8B5CF6', '#06B6D4', '#F59E0B', '#10B981', '#EF4444'][index % 6]
-                    }, ${
-                      ['#F97316', '#7C3AED', '#0EA5E9', '#FBBF24', '#059669', '#DC2626'][index % 6]
-                    })`
+                    background: `linear-gradient(135deg, ${['#EC4899', '#8B5CF6', '#06B6D4', '#F59E0B', '#10B981', '#EF4444'][index % 6]
+                      }, ${['#F97316', '#7C3AED', '#0EA5E9', '#FBBF24', '#059669', '#DC2626'][index % 6]
+                      })`
                   }}
                 >
                   👤
