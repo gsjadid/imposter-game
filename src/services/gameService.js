@@ -31,6 +31,9 @@ export const startGame = async (roomId, players, config) => {
         'gameConfig.hint': wordData.hint,
         'gameConfig.imposterId': updatedPlayers[imposterIndex].id,
         'gameConfig.round': 1,
+        votes: {}, // Reset votes
+        winner: null, // Reset winner
+        votedOutId: null, // Reset voted out player
         updatedAt: serverTimestamp()
     });
 };
@@ -80,7 +83,8 @@ export const nextRound = async (roomId, currentRound, players) => {
 
     await updateRoomStatus(roomId, 'CLUE', {
         'gameConfig.round': currentRound + 1,
-        players: players.map(p => ({ ...p, isReady: false })) // Reset ready status
+        players: players.map(p => ({ ...p, isReady: false })), // Reset ready status
+        votes: {} // Clear votes for next round
     });
 };
 
