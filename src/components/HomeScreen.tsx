@@ -18,7 +18,7 @@ const generateGalaxyDots = () => {
     'rgba(236, 72, 153, 0.8)', // pink-ish
     'rgba(167, 139, 250, 0.8)', // purple-ish
   ];
-  
+
   for (let i = 0; i < 50; i++) {
     const shouldGlow = Math.random() > 0.7; // 30% chance to glow
     dots.push({
@@ -136,7 +136,7 @@ export function HomeScreen({ onCreateGame, onJoinGame }: HomeScreenProps) {
           className="text-center mb-6 sm:mb-8 relative"
         >
           {/* Floating decorative elements */}
-          <motion.div 
+          <motion.div
             animate={{ rotate: 360, scale: [1, 1.2, 1] }}
             transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
             className="absolute -top-8 -right-8 sm:-top-10 sm:-right-10 text-yellow-400 opacity-20 pointer-events-none"
@@ -148,8 +148,8 @@ export function HomeScreen({ onCreateGame, onJoinGame }: HomeScreenProps) {
               ✨
             </motion.div>
           </motion.div>
-          
-          <motion.div 
+
+          <motion.div
             animate={{ rotate: -360, y: [0, -10, 0] }}
             transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
             className="absolute -top-4 -left-8 sm:-top-6 sm:-left-10 text-pink-400 opacity-20 pointer-events-none text-2xl sm:text-3xl"
@@ -173,18 +173,18 @@ export function HomeScreen({ onCreateGame, onJoinGame }: HomeScreenProps) {
               </div>
             </div>
           </motion.div>
-          
+
           <div>
             <motion.h1
               className="text-5xl sm:text-6xl md:text-7xl font-black tracking-tighter text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.4)] mb-2"
             >
-              PARTY<br/>
+              PARTY<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--game-cyan)] via-[var(--game-pink)] to-[var(--game-orange)]" style={{ backgroundSize: "200% auto" }}>
                 HEIST!
               </span>
             </motion.h1>
           </div>
-          
+
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -270,18 +270,18 @@ export function HomeScreen({ onCreateGame, onJoinGame }: HomeScreenProps) {
           <DialogContent className="bg-gradient-to-br from-[var(--game-bg-gradient-start)] to-[var(--game-purple-dark)] text-white border-white/20 max-w-3xl max-h-[85vh] overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             <DialogHeader>
               <DialogTitle className="text-3xl sm:text-4xl font-black bg-gradient-to-r from-[var(--game-cyan)] via-[var(--game-pink)] to-[var(--game-orange)] bg-clip-text text-transparent mb-2">
-                🎭 How to Play IMPOSTER!
+                🎭 How to Play PARTY HEIST!
               </DialogTitle>
               <DialogDescription className="text-base text-white/60">
                 Learn the rules and strategies to become a master of the game.
               </DialogDescription>
             </DialogHeader>
-            
+
             <div className="space-y-8 mt-6">
               {/* Game Overview */}
               <div className="bg-white/5 backdrop-blur-xl rounded-xl p-5 border border-white/10">
                 <p className="text-base text-white/90 leading-relaxed">
-                  <strong className="text-[var(--game-cyan)]">Imposter</strong> is a social deduction game where players must identify the hidden Imposter among them while the Imposter tries to blend in and survive.
+                  <strong className="text-[var(--game-cyan)]">Party Heist!</strong> is a social deduction game where players must identify the hidden Imposter among them while the Imposter tries to blend in and survive.
                 </p>
               </div>
 
@@ -290,7 +290,7 @@ export function HomeScreen({ onCreateGame, onJoinGame }: HomeScreenProps) {
                 <h3 className="text-2xl font-black text-[var(--game-pink)] mb-4 flex items-center gap-2">
                   🎭 Roles
                 </h3>
-                
+
                 <div className="space-y-4">
                   {/* Civilian */}
                   <div className="bg-gradient-to-r from-[var(--game-cyan)]/10 to-[var(--game-green)]/10 rounded-xl p-4 border border-[var(--game-cyan)]/20">
@@ -323,7 +323,7 @@ export function HomeScreen({ onCreateGame, onJoinGame }: HomeScreenProps) {
                 <h3 className="text-2xl font-black text-[var(--game-purple)] mb-4 flex items-center gap-2">
                   🕹️ Game Phases
                 </h3>
-                
+
                 <div className="space-y-3">
                   <div className="bg-white/5 rounded-lg p-4 border border-white/10">
                     <h4 className="text-lg font-black text-white mb-2">1. Lobby</h4>
