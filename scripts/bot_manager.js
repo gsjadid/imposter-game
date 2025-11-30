@@ -1,5 +1,8 @@
-import { db } from '../src/firebase.js';
+/* eslint-env node */
+/* global process */
+import { db, auth } from '../src/firebase.js';
 import { doc, onSnapshot } from 'firebase/firestore';
+import { onAuthStateChanged } from 'firebase/auth';
 import { joinRoom } from '../src/services/roomService.js';
 import { markPlayerReady, castVote } from '../src/services/gameService.js';
 
@@ -11,8 +14,6 @@ if (!roomId) {
     console.error("Usage: node scripts/bot_manager.js <ROOM_ID> [BOT_COUNT]");
     process.exit(1);
 }
-
-console.log(`Starting ${botCount} bots for room ${roomId}...`);
 
 const bots = [];
 
@@ -90,13 +91,23 @@ class Bot {
     }
 }
 
-// Start bots
-for (let i = 0; i < botCount; i++) {
-    const bot = new Bot(i);
-    bots.push(bot);
-    // Stagger joins slightly
-    setTimeout(() => bot.join(), i * 500);
-}
+let botsStarted = false;
+
+console.log("Waiting for authentication...");
+onAuthStateChanged(auth, (user) => {
+    if (user && !botsStarted) {
+        botsStarted = true;
+        console.log(`Authenticated as ${user.uid}. Starting ${botCount} bots for room ${roomId}...`);
+
+        // Start bots
+        for (let i = 0; i < botCount; i++) {
+            const bot = new Bot(i);
+            bots.push(bot);
+            // Stagger joins slightly
+            setTimeout(() => bot.join(), i * 500);
+        }
+    }
+});
 
 // Keep process alive
 setInterval(() => { }, 1000);

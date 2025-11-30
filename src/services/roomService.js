@@ -19,7 +19,7 @@ export const createRoom = async (hostName, targetPlayers) => {
             isHost: true
         }],
         gameConfig: {
-            targetPlayers: parseInt(targetPlayers),
+            targetPlayers: targetPlayers ? parseInt(targetPlayers) : 10,
             word: null,
             hint: null,
             imposterId: null,

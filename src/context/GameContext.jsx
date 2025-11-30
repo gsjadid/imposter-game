@@ -35,8 +35,10 @@ export const GameProvider = ({ children }) => {
   useEffect(() => {
     // Only subscribe if we have a roomId AND we are authenticated
     if (roomId && user) {
-      setLoading(true);
+      // Use setTimeout to avoid synchronous state update warning
+      const timer = setTimeout(() => setLoading(true), 0);
       const unsubscribe = subscribeToRoom(roomId, (data, err) => {
+        clearTimeout(timer);
 
 
         if (err) {

@@ -1,0 +1,26 @@
+/* 🔥 NEW SECTION: Hide scrollbars for app-like feel */
+
+/* Prevent page scrolling */
+html,
+body {
+    overflow: hidden;
+    /* No scrolling allowed */
+    height: 100%;
+    /* Exact viewport height */
+    width: 100%;
+    /* Exact viewport width */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+*::-webkit-scrollbar {
+    display: none;
+    /* Completely hide scrollbar */
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+* {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
