@@ -32,6 +32,7 @@ export const startGame = async (roomId, players, config) => {
         'gameConfig.imposterId': updatedPlayers[imposterIndex].id,
         'gameConfig.round': 1,
         votes: {}, // Reset votes
+        votingRequests: [], // Reset voting requests
         winner: null, // Reset winner
         votedOutId: null, // Reset voted out player
         updatedAt: serverTimestamp()
@@ -84,7 +85,8 @@ export const nextRound = async (roomId, currentRound, players) => {
     await updateRoomStatus(roomId, 'CLUE', {
         'gameConfig.round': currentRound + 1,
         players: players.map(p => ({ ...p, isReady: false })), // Reset ready status
-        votes: {} // Clear votes for next round
+        votes: {}, // Clear votes for next round
+        votingRequests: [] // Clear voting requests
     });
 };
 
@@ -159,4 +161,35 @@ const resolveGame = async (roomId, players, votes, imposterId) => {
         winner: winner,
         votedOutId: votedOutId
     });
+};
+
+export const voteToStartVoting = async (roomId, playerId) => {
+    const roomRef = doc(db, 'rooms', roomId);
+
+    try {
+        await runTransaction(db, async (transaction) => {
+            const roomDoc = await transaction.get(roomRef);
+            if (!roomDoc.exists()) throw "Document does not exist!";
+
+            const data = roomDoc.data();
+            const votingRequests = data.votingRequests || [];
+
+            if (!votingRequests.includes(playerId)) {
+                const newVotingRequests = [...votingRequests, playerId];
+
+                const updates = { votingRequests: newVotingRequests };
+
+                // Check if all players have requested voting
+                // We compare against total players in the room
+                if (newVotingRequests.length >= data.players.length) {
+                    updates.status = 'VOTING';
+                }
+
+                transaction.update(roomRef, updates);
+            }
+        });
+    } catch (e) {
+        console.error("Transaction failed: ", e);
+        throw e;
+    }
 };

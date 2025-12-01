@@ -1,8 +1,8 @@
 import { motion } from "motion/react";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
-import { Eye, Clock, Users, Shield, Sparkles, MessageCircle, LogOut } from "lucide-react";
-import { useState, useEffect } from "react";
+import { Eye, Clock, Users, Shield, Sparkles, MessageCircle, LogOut, Check } from "lucide-react";
+import { useState } from "react";
 
 interface Player {
   id: string;
@@ -20,6 +20,7 @@ interface GameplayScreenProps {
   onVote: () => void;
   hint?: string; // Hint for imposters
   onLeaveGame?: () => void;
+  votingRequests?: string[];
 }
 
 export function GameplayScreen({
@@ -31,6 +32,7 @@ export function GameplayScreen({
   onVote,
   hint,
   onLeaveGame,
+  votingRequests = [],
 }: GameplayScreenProps) {
   const [showWord, setShowWord] = useState(true);
   const [showHint, setShowHint] = useState(true);
@@ -267,7 +269,7 @@ export function GameplayScreen({
               <Users className="w-3 h-3 sm:w-4 sm:h-4" />
               Players
             </h3>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 sm:gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 sm:gap-2 overflow-y-auto">
               {players.map((player, index) => {
                 const isCurrentPlayer = player.id === currentPlayerId;
                 return (
@@ -297,6 +299,12 @@ export function GameplayScreen({
                           {player.name}
                           {isCurrentPlayer && " (You)"}
                         </p>
+                        {votingRequests.includes(player.id) && (
+                          <Badge variant="secondary" className="ml-auto bg-gradient-to-r from-[var(--game-cyan)] to-[var(--game-green)] text-[var(--game-bg-dark)] font-bold border-0 text-[10px] px-2 h-5 flex items-center gap-1 shadow-[0_0_10px_rgba(34,211,238,0.3)]">
+                            <Check className="w-3 h-3" />
+                            Ready!
+                          </Badge>
+                        )}
                       </div>
                     </div>
                   </motion.div>
@@ -315,14 +323,16 @@ export function GameplayScreen({
         >
           <Button
             onClick={onVote}
-            className="w-full h-10 sm:h-11 md:h-12 bg-gradient-to-r from-[var(--game-orange)] to-[var(--game-red)] hover:from-[var(--game-orange)]/90 hover:to-[var(--game-red)]/90 text-white shadow-xl shadow-orange-500/30 border-0 text-sm sm:text-base"
+            disabled={votingRequests.includes(currentPlayerId)}
+            className="w-full h-10 sm:h-11 md:h-12 bg-gradient-to-r from-[var(--game-orange)] to-[var(--game-red)] hover:from-[var(--game-orange)]/90 hover:to-[var(--game-red)]/90 text-white shadow-xl shadow-orange-500/30 border-0 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <Eye className="w-4 h-4 sm:w-5 sm:h-5 mr-1.5 sm:mr-2" />
-            Start Voting
+            {votingRequests.includes(currentPlayerId)
+              ? `Waiting for others (${votingRequests.length}/${alivePlayers.length})`
+              : `Start Voting (${votingRequests.length}/${alivePlayers.length})`
+            }
           </Button>
         </motion.div>
-
-
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import { db, auth } from '../src/firebase.js';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import { joinRoom } from '../src/services/roomService.js';
-import { markPlayerReady, castVote } from '../src/services/gameService.js';
+import { markPlayerReady, castVote, voteToStartVoting } from '../src/services/gameService.js';
 
 const args = process.argv.slice(2);
 const roomId = args[0];
@@ -23,6 +23,7 @@ class Bot {
         this.id = null;
         this.unsubscribe = null;
         this.hasVoted = false;
+        this.hasRequestedVote = false;
     }
 
     async join() {
@@ -64,7 +65,28 @@ class Bot {
             }
         }
 
-        // 2. Auto Vote in VOTING phase
+        // 2. Auto Request Vote in DISCUSSION phase
+        if (data.status === 'DISCUSSION') {
+            const votingRequests = data.votingRequests || [];
+            if (!this.hasRequestedVote && !votingRequests.includes(this.id)) {
+                this.hasRequestedVote = true;
+                const delay = Math.random() * 10000 + 5000; // 5-15 seconds
+                console.log(`${this.name} will request to vote in ${Math.round(delay / 1000)}s`);
+
+                setTimeout(async () => {
+                    try {
+                        console.log(`${this.name} requesting to vote...`);
+                        await voteToStartVoting(roomId, this.id);
+                    } catch (e) {
+                        console.error(`${this.name} error requesting vote:`, e.message);
+                    }
+                }, delay);
+            }
+        } else {
+            this.hasRequestedVote = false;
+        }
+
+        // 3. Auto Vote in VOTING phase
         if (data.status === 'VOTING') {
             if (!this.hasVoted) {
                 this.hasVoted = true; // Prevent spamming

@@ -9,11 +9,13 @@ interface RoleRevealScreenProps {
   hint?: string;
   onContinue: () => void;
   onLeaveGame?: () => void;
+  isReady?: boolean;
 }
 
-export function RoleRevealScreen({ role, word, hint, onContinue, onLeaveGame }: RoleRevealScreenProps) {
+export function RoleRevealScreen({ role, word, hint, onContinue, onLeaveGame, isReady: propIsReady }: RoleRevealScreenProps) {
   const [revealed, setRevealed] = useState(false);
   const [canContinue, setCanContinue] = useState(false);
+  const [isReady, setIsReady] = useState(propIsReady || false);
 
   const isImposter = role === "imposter";
 
@@ -31,6 +33,17 @@ export function RoleRevealScreen({ role, word, hint, onContinue, onLeaveGame }: 
       clearTimeout(continueTimer);
     };
   }, []);
+
+  useEffect(() => {
+    if (propIsReady) {
+      setIsReady(true);
+    }
+  }, [propIsReady]);
+
+  const handleContinue = () => {
+    setIsReady(true);
+    onContinue();
+  };
 
   return (
     <div className="h-dynamic-screen w-full bg-gradient-to-br from-[var(--game-bg-gradient-start)] via-[var(--game-bg-gradient-end)] to-[var(--game-purple-dark)] flex items-center justify-center p-3 sm:p-4 overflow-hidden relative">
@@ -334,10 +347,11 @@ export function RoleRevealScreen({ role, word, hint, onContinue, onLeaveGame }: 
                     transition={{ delay: 0.2 }}
                   >
                     <Button
-                      onClick={onContinue}
-                      className="w-full h-11 sm:h-12 md:h-14 bg-white text-black hover:bg-white/90 shadow-xl text-sm sm:text-base md:text-lg"
+                      onClick={handleContinue}
+                      disabled={isReady}
+                      className="w-full h-11 sm:h-12 md:h-14 bg-white text-black hover:bg-white/90 shadow-xl text-sm sm:text-base md:text-lg disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      I'm Ready!
+                      {isReady ? "Waiting for others..." : "I'm Ready!"}
                     </Button>
                   </motion.div>
                 )}

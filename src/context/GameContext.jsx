@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { subscribeToRoom, removePlayer, deleteRoom } from '../services/roomService';
-import { startGame, markPlayerReady, submitOutcome, nextRound, castVote } from '../services/gameService';
+import { startGame, markPlayerReady, submitOutcome, nextRound, castVote, voteToStartVoting } from '../services/gameService';
 
 import { auth } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -98,7 +98,8 @@ export const GameProvider = ({ children }) => {
     markReady: () => markPlayerReady(roomId, roomData.players, playerId),
     submitOutcome: (outcome) => submitOutcome(roomId, outcome),
     nextRound: () => nextRound(roomId, roomData.gameConfig.round, roomData.players),
-    castVote: (accusedId) => castVote(roomId, playerId, accusedId)
+    castVote: (accusedId) => castVote(roomId, playerId, accusedId),
+    voteToStartVoting: () => voteToStartVoting(roomId, playerId)
   };
 
   const value = {

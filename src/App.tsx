@@ -20,6 +20,7 @@ function App() {
         startGame,
         markReady,
         castVote,
+        voteToStartVoting,
         currentPlayer,
         roomId
     } = useGame();
@@ -84,7 +85,7 @@ function App() {
 
     const handleStartVoting = async () => {
         if (roomId) {
-            await updateRoomStatus(roomId, 'VOTING');
+            await voteToStartVoting();
         }
     };
 
@@ -192,6 +193,8 @@ function App() {
                             word={roomData.gameConfig?.word}
                             hint={roomData.gameConfig?.hint}
                             onContinue={() => markReady()}
+                            onLeaveGame={leaveGame}
+                            isReady={currentPlayer?.isReady}
                         />
                     </motion.div>
                 )}
@@ -214,6 +217,7 @@ function App() {
                             timeRemaining={timeRemaining}
                             onVote={handleStartVoting}
                             onLeaveGame={leaveGame}
+                            votingRequests={roomData.votingRequests || []}
                         />
                     </motion.div>
                 )}
